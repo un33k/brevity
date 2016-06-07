@@ -19,6 +19,11 @@ Your personal time and energy are valuable and finite resources. As a publisher,
 
 Use your **intellect** and **passion** on what is really important to you and let **Brevity** take care of everything else.
 
+
+# Demo
+Visit [simplyfound.com](https://simplyfound.com), create an account and take brevity for a spin.
+
+
 # Installation
 
 ```bash
@@ -53,6 +58,7 @@ bin/dev/manage.py runserver_plus 0.0.0.0:8080
 # development superuser password is `hello`
 # development superuser name is found in `superuser_username` in the seekrets.json file
 ```
+
 
 # Deployment
 You can adapt the development steps and modify as per your deployment needs.
