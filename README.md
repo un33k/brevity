@@ -28,6 +28,9 @@ git clone --depth 1 https://github.com/un33k/brevity.git
 # change directory to our repo
 cd brevity
 
+# change to the development branch
+git checkout development
+
 # add required global libraries
 pip install -r env/reqs/dev.txt
 
