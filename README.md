@@ -24,7 +24,7 @@ Use your **intellect** and **passion** on what is really important to you and le
 Visit [simplyfound.com](https://simplyfound.com), create an account and take brevity for a spin.
 
 
-# Installation
+# Development
 
 ```bash
 # clone our repository (--depth 1 only gets the last .git commit history)
@@ -54,9 +54,9 @@ bin/dev/manage.py runserver_plus 0.0.0.0:8080
 
 # point your browser to localhost:8080
 
-# login and add start adding articles
-# development superuser password is `hello`
-# development superuser name is found in `superuser_username` in the seekrets.json file
+# login and start looking around (e.g. create articles)
+# superuser username is found in `superuser_username` in the seekrets.json file
+# superuser password is `hello` -- development ONLY
 ```
 
 
