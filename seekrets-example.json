@@ -13,7 +13,7 @@
     "database_name": "brevity_db",
     "database_pass": "MyBrevityPass",
 
-    "superuser_username": "admino",
+    "superuser_username": "admin",
     "superuser_email": "admin@brevitypress.com",
     "superuser_password": "MyBrevityAdminPass",
 
