@@ -1,0 +1,35 @@
+<div id="article-search-result">
+
+  <div class="article-view-box">
+
+    <div class="col-md-12 article-content">
+
+      <div class="col-md-12 unfloat article center-block">
+
+        {% if GOOGLE_ADS %}
+          {% adsense_info as ads_info %}
+          {% if ads_info.0 and ads_info.1 %}
+              {% include "portal/article/misc/ad_top.html" %}
+          {% endif %}
+        {% endif %}
+
+        <div class="article-index-view center-block">
+          {% include "portal/index/summary.html" %}
+        </div>
+
+        {% if GOOGLE_ADS %}
+          {% adsense_info as ads_info %}
+          {% if ads_info.0 and ads_info.1 %}
+              {% include "portal/article/misc/ad_bottom.html" %}
+          {% endif %}
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="clearfix"></div>

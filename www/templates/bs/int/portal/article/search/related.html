@@ -1,0 +1,72 @@
+{% get_related article 10 as related_articles %}
+
+{% if related_articles %}
+
+<div class="card-box-content box-shadow-4dp text-center related-content-box">
+  <span class="white">
+    <i class="fa fa-star fa-spin"></i>&nbsp;&nbsp;
+    <strong class="">Related Content</strong>&nbsp;&nbsp;
+    <i class="fa fa-star fa-spin"></i>
+  </span>
+</div>
+
+{% endif %}
+
+{% for article in related_articles %}
+  <div class="card-box-content box-shadow-4dp">
+    {% if article.primary_media %}
+      {% if article.primary_media.is_video %}
+        <div class="media-container ">
+          <div class="video-wrapper video-play-container">
+            <div class="image">
+              <img src="{{article.primary_media.image}}" data-link="{{article.primary_media.link}}" class="bottom-aligned">
+              <div class="overlay-play-button" style="background: url('{% static 'img/misc/video-play-button.png' %}') no-repeat;"></div>
+            </div>
+            <div class="video" data-link="{{article.primary_media.link}}"></div>
+          </div>
+        </div>
+      {% else %}
+        <div class="media-container ">
+          <div class="image-wrapper">
+            <div class="image">
+              <a href="{{article.get_absolute_url}}" rel="index,follow" class="read-full-article">
+                <img src="{{request|optimized_image:article.primary_media}}" class="bottom-aligned">
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <h1 class="card-box-title">
+        <span class="index-view-headline">{{article.headline|highlight:query_string}}</span>
+    </h1>
+
+    {% include "portal/article/misc/preview_action.html" %}
+
+  </div>
+
+<div class="clearfix"></div>
+{% include "portal/article/misc/share.html" %}
+
+{% endfor %}
+
+{% if GOOGLE_ADS %}
+  {% if related_articles|length > 1 %}
+    {% adsense_info as ads_info %}
+    {% if ads_info.0 and ads_info.1 %}
+        {% include "portal/article/misc/ad_bottom.html" %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+<div class="card-box-content box-shadow-4dp text-center">
+  {% get_menu "FOOTER_MENU_SEARCH" as menu_list %}
+  {% for item in menu_list %}
+    <a href="{{item.url}}" class="btn btn-default {{item.class}} bold actionable" rel="nofollow,noindex"
+        {% for att,val in item.href_attrs.items %} {{att}}="{{val}}" {% endfor %}
+      >
+        <i class="{{item.icon}}"></i> <span> {{item.name}}</span>
+    </a>
+  {% endfor %}
+</div>

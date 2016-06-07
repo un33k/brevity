@@ -1,0 +1,28 @@
+<div class="sub-nav">
+
+  <nav class="navbar navbar-default">
+
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-sub-nav">
+          <span class="menu-caret">
+            <span class="pull-left">Account </span>
+            <i class="fa fa-navicon"></i>
+            <i class="fa fa-caret-down"></i>
+          </span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="collapsable-sub-nav">
+          <ul class="nav navbar-nav navbar-left">
+            {% get_menu "SUBMENU_ACCOUNT" as menu_list %}
+            {% include "admin/account/menu_list.html" %}
+          </ul>
+      </div>
+
+    </div>
+
+  </nav>
+
+</div>

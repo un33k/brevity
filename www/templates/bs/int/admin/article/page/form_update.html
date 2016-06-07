@@ -1,0 +1,68 @@
+<div id="target-article-{{article.id}}">
+
+    <div class="card-box-content box-shadow-4dp">
+
+        <div class="panel-default">
+            <div class="panel-heading">
+              <div class="panel-title">
+                  <div class="article-icon pull-right">
+                    <i class="fa fa-file-text-o"></i>
+                  </div>
+                  <h3 class="bold">
+                    Site Page
+                    <span class="ajax_wheel spin-it">
+                      <img src="{% static 'img/misc/ajax_loader_red.gif' %}">
+                    </span>
+                  </h3>
+              </div>
+            </div>
+            <div class="panel-body">
+
+                {% if not article.is_private and article.headline %}
+                  <div class="pub-link">
+                      <span class="{% if article.public %} text-success {% else %} text-warning {% endif %}">Local Link: </span>
+                      <a href="{{article.get_page_absolute_url}}" target="_blank"> {{article.get_page_absolute_url}}</a>
+                  </div>
+                {% endif %}
+
+                <form class="form-horizontal"
+                      action="{% url 'articleware:article_page_update' article.id %}"
+                      enctype="multipart/form-data"
+                      method="POST"
+                      accept-charset="utf-8"
+                      novalidate>
+
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                </form>
+
+            </div>
+
+            <div class="panel-footer">
+
+            <div class="article-action-box">
+
+              <i class="clickable-icon fa fa-floppy-o text-primary article-update" data-target="target-article-{{article.id}}" rel="tooltip" data-placement="top" data-original-title="save">
+              </i>
+
+                {% if article.headline %}
+                  {% if article.is_unlisted %}
+                    <a href="{{article.get_page_absolute_url}}" target="_blank" rel="tooltip" data-placement="top" data-original-title="unlisted view">
+                      <i class="fa fa-eye text-warning"></i>
+                    </a>
+                  {% else %}
+                    <a href="{{article.get_page_absolute_url}}" target="_blank" rel="tooltip" data-placement="top" data-original-title="private view">
+                      <i class="fa fa-eye-slash text-muted"></i>
+                    </a>
+                  {% endif %}
+                {% endif %}
+
+            </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,48 @@
+{% extends "contact/base.html" %}
+
+{% block head_title %}
+  <title>Contact Us - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+
+{% block action_box %}
+
+<div class="card-box-content box-shadow-4dp quick-nav-blank">
+
+  <div class="panel-default">
+      <div class="panel-heading">
+          <div class="panel-title">
+              <i class="fa fa-envelope-o fa-2x pull-right account-icon-vertical-align"></i>
+              <h3 class="bold">
+                Contact Us
+                <span class="ajax_wheel spin-it">
+                  <img src="{% static 'img/misc/ajax_loader_red.gif' %}">
+                </span>
+              </h3>
+          </div>
+      </div>
+
+      <div class="panel-body">
+
+          <form class="form-horizontal"
+                action="{% url 'contactware:contactware_form_view' %}"
+                enctype="multipart/form-data"
+                method="POST"
+                accept-charset="utf-8"
+                novalidate>
+
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                  <button type="submit" class="btn btn-primary has-ajax">Send</button>
+              {% endbuttons %}
+
+          </form>
+
+      </div>
+
+  </div>
+
+</div>
+
+{% endblock action_box %}

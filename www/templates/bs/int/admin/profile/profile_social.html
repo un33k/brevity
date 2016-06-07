@@ -1,0 +1,61 @@
+{% extends "admin/profile/base.html" %}
+
+{% block head_title %}
+  <title>Account Profile - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+
+{% block action_box %}
+
+{% get_menu "SUBMENU_ACCOUNT_SETTINGS" as menu_list %}
+{% include "admin/account/menu_quick.html" %}
+
+<div class="card-box-content box-shadow-4dp">
+
+  <div class="panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <i class="fa fa-group fa-2x pull-right account-icon-vertical-align"></i>
+            <h3 class="bold">Social Accounts</h3>
+        </div>
+    </div>
+    <div class="panel-body">
+
+        {% if social_auth_enabled and social_auth_enabled|length > 0 %}
+          <div class="social-connect-box">
+            {% for social in social_auth_enabled %}
+                {% if not request|has_social_association:social.module %}
+                  <a href="{% url 'social:begin' social.module %}?next={{request.path}}" rel="nofollow" class="social-connect-link {{social.name|lower}}-border">
+                    <span class="fa-stack fa-3x">
+                      <i class="fa fa-circle fa-stack-2x {{social.name|lower}}-bg"></i>
+                      <i class="fa fa-{{social.icon}} fa-stack-1x social-fg"></i>
+                    </span>
+                    <div class="col-md-6 text-center">
+                        CONNECT<br>{{social.name|upper}}
+                    </div>
+                    <i class="fa fa-arrow-right black"></i>
+                  </a>
+                {% else %}
+                    <div class="social-connect-link {{social.name|lower}}-border transparent_35">
+                        <span class="fa-stack fa-3x">
+                          <i class="fa fa-circle fa-stack-2x {{social.name|lower}}-bg"></i>
+                          <i class="fa fa-{{social.icon}} fa-stack-1x social-fg"></i>
+                        </span>
+                        <div class="col-md-6 text-center">
+                            CONNECT<br>{{social.name|upper}}
+                        </div>
+                        <i class="fa fa-check text-success"></i>
+                    </div>
+                {% endif %}
+            {% endfor %}
+          </div>
+
+          <div class="new-divider"></div>
+          <i class="fa fa-hand-o-right text-info"></i> Associate your social accounts for easy future login<br>
+          {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock action_box %}

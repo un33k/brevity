@@ -1,0 +1,13 @@
+{% extends "base/main.html" %}
+
+{% block head_title %}
+  <title>{{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block content %}
+    {{block.super}}
+    {% include "portal/index/jumbotron.html" %}
+    {% include "portal/index/content.html" %}
+{% endblock content %}
+
+

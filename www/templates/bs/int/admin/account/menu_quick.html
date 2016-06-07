@@ -1,0 +1,7 @@
+<div class="quick-nav-box">
+    {% for item in menu_list %}
+        <a href="{{item.url}}" type="button" class="btn btn-default {% if item.selected %} btn-default-selected {% endif %} {{item.class}}" {% for att,val in item.href_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+            <i class="{{item.icon}}"></i>&nbsp;&nbsp;<span class="quick-button">{{item.name}}</span>
+        </a>
+    {% endfor %}
+</div>

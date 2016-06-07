@@ -1,0 +1,50 @@
+{% extends "portal/approval/base.html" %}
+
+{% block head_title %}
+  <title>Approval Request - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+
+{% block action_box %}
+
+<div class="card-box-content box-shadow-4dp quick-nav-blank">
+
+  <div class="panel-default">
+      <div class="panel-heading">
+          <div class="panel-title">
+              <i class="fa fa-thumbs-o-up fa-2x pull-right account-icon-vertical-align"></i>
+              <h3 class="bold">
+                Approval Request
+                <span class="ajax_wheel spin-it">
+                  <img src="{% static 'img/misc/ajax_loader_red.gif' %}">
+                </span>
+              </h3>
+          </div>
+      </div>
+
+      <div class="panel-body">
+
+          <form class="form-horizontal"
+                action="{% url 'portal:approval_confirmation_view' %}"
+                enctype="multipart/form-data"
+                method="POST"
+                accept-charset="utf-8"
+                novalidate>
+
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                  <button type="submit" class="btn btn-primary has-ajax">Send Request</button>
+              {% endbuttons %}
+
+          </form>
+
+          <div class="new-divider"></div>
+          <i class="fa fa-hand-o-right red"></i> {% trans "To become an approved author, you must have minimum of two <u>authentic</u>, <u>high quality</u> articles ready for publication.  By sending this request you confirm that you have <b>read</b>, <b>understood</b> and <b>accept</b> our " %} <a href="/site/terms-conditions" class="bold">Terms & Conditions.</a>
+      </div>
+
+  </div>
+
+</div>
+
+{% endblock action_box %}

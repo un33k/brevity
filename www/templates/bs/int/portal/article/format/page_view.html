@@ -1,0 +1,109 @@
+<div class="article-fullview center-block">
+
+  {% if not request.user_agent.is_bot %}
+    <div class="hidden">{{request|view_count:article}}</div>
+  {% endif %}
+
+  <div class="card-box-content box-shadow-4dp">
+
+    <div class="card-box-header">
+      <h1 class="card-box-title">
+
+        <span class="">{{article.headline}}</span>
+
+        {% if article.author == request.user or article.editor == request.user %}
+          <div class="edit-option pull-left">
+          <a href="{% url 'articleware:article_page_update' article.id %}" class="confirm" placement="right" title="Edit Page?">
+            <i class="fa fa-pencil text-warning"></i>
+          </a>
+          </div>
+        {% endif %}
+
+      </h1>
+    </div>
+    <div class="spacer"></div>
+
+    <div class="card-box-body">
+
+    {% for snippet in article.snippets %}
+      {% if snippet.type == snippet.SNIPPET_TYPE_TEXT %}
+
+          {% if snippet.content %}
+            <div class="text-content-box">{{snippet.content|securify:request|safe|linebreaksbr}}</div>
+          {% elif article.preview %}
+            <span class="fa text-warning">Warning: Snippet {{ forloop.counter }} is empty. Add some content or remove it.</span>
+          {% endif %}
+
+      {% elif snippet.type == snippet.SNIPPET_TYPE_IMAGE %}
+
+        {% if snippet.images %}
+          {% if snippet.images|length == 1 %}
+          <div class="media-container ">
+            <div class="image-wrapper">
+              <div class="image">
+                <img src="{{request|optimized_image:snippet.images.0}}" class="bottom-aligned">
+              </div>
+            </div>
+          </div>
+          {% else %}
+            {% include "portal/article/carousel/image.html" %}
+          {% endif %}
+          <div class="media-caption">{% if snippet.caption %}{{snippet.caption|safe}}{% else %} {% endif %}</div>
+        {% else %}
+          {% if article.preview %}
+            <span class="fa text-warning">Warning: Snippet {{ forloop.counter }} is empty. Add images or remove it.</span>
+          {% endif %}
+        {% endif %}
+
+      {% elif snippet.type == snippet.SNIPPET_TYPE_VIDEO %}
+
+        {% if snippet.videos %}
+          {% if snippet.videos|length == 1 %}
+          <div class="media-container ">
+              <div class="video-wrapper video-play-container">
+                <div class="image">
+                  <img src="{{snippet.videos.0.image}}" data-link="{{article.primary_video.link}}" class="bottom-aligned">
+                  <div class="overlay-play-button" style="background: url('{% static 'img/misc/video-play-button.png' %}') no-repeat;"></div>
+                </div>
+                <div class="video" data-link="{{snippet.videos.0.link}}"></div>
+              </div>
+            </div>
+          {% else %}
+            {% include "portal/article/carousel/video.html" %}
+          {% endif %}
+          <div class="media-caption">{% if snippet.caption %}{{snippet.caption|safe}}{% else %} {% endif %}</div>
+        {% else %}
+          {% if article.preview %}
+            <span class="fa text-warning">Warning: Snippet {{ forloop.counter }} is empty. Add videos or remove it.</span>
+          {% endif %}
+        {% endif %}
+
+    {% elif snippet.type == snippet.SNIPPET_TYPE_MAP %}
+
+        {% if snippet.content %}
+          <div class="media-container">
+                <div id="map-canvas-{{snippet.id}}" class="flexible-container"></div>
+                <script type="text/javascript">
+                  document.addEventListener("DOMContentLoaded", function(event) {
+                    set_map_params('{{snippet.id|safe}}', '{{snippet.content|safe}}');
+                  });
+                </script>
+            </div>
+          <div class="media-caption">{% if snippet.caption %}{{snippet.caption|safe}}{% else %} {% endif %}</div>
+        {% else %}
+          {% if article.preview %}
+            <span class="fa text-warning">Warning: Snippet {{ forloop.counter }} is empty. Add videos or remove it.</span>
+          {% endif %}
+        {% endif %}
+
+    {% endif %}
+
+      {% if not forloop.last %}<div class="spacer"></div>{% endif %}
+
+    {% endfor %}
+
+    </div>
+
+  </div>
+
+</div>

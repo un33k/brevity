@@ -1,0 +1,19 @@
+{% for image in snippet.unfinal_images %}
+    <tr id="tr-image-{{image.id}}" class="">
+
+     <td class="col-xs-4">
+           <img src="{{image.image.url}}" width="120" height="68" data-toggle="modal" data-target="#image-preview-modal" class="image-thumb image-preview-modal-trigger" data-isrc="{{image.image.url}}"/>
+     </td>
+
+     <td class="col-xs-8">
+
+        <i class="{% if not image.no_swap_up %}clickable-icon image-sort-submitter text-muted {% else %} disabled {% endif %} fa fa-arrow-circle-down fa-3x image-priority-button" data-tr="tr-image-{{image.id}}" data-direction='DOWN' data-url="{% url 'articleware:snippet_image_swap_priority' 'DOWN' image.id %}"></i>
+
+        <i class="{% if not image.no_swap_down %}clickable-icon image-sort-submitter text-muted {% else %} disabled {% endif %} fa fa-arrow-circle-up fa-3x image-priority-button" data-tr="tr-image-{{image.id}}" data-direction='UP' data-url="{% url 'articleware:snippet_image_swap_priority' 'UP' image.id %}"></i>
+
+        <i class="confirm clickable-icon fa fa-trash fa-3x text-danger spin-it" confirm-type="image" data-url="{% url 'articleware:snippet_image_delete' image.id %}" data-tr="tr-image-{{image.id}}"></i>
+
+     </td>
+
+    </tr>
+{% endfor %}

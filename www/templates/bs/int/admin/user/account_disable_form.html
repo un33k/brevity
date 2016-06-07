@@ -1,0 +1,54 @@
+{% extends "admin/user/base_authenticated.html" %}
+
+{% block head_title %}
+  <title>Disable Account - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block action_box %}
+
+{% get_menu "SUBMENU_ACCOUNT_PROFILE" as menu_list %}
+{% include "admin/account/menu_quick.html" %}
+
+<div class="card-box-content box-shadow-4dp">
+
+  <div class="panel-default">
+      <div class="panel-heading">
+          <div class="panel-title">
+              <i class="fa fa-trash text-danger fa-2x pull-right account-icon-vertical-align"></i>
+              <h3 class="bold">Disable Account</h3>
+          </div>
+      </div>
+      <div class="panel-body">
+
+          <form class="form-horizontal"
+                action="{% url 'userware:user_disable_account' %}"
+                enctype="multipart/form-data"
+                method="POST"
+                accept-charset="utf-8"
+                novalidate>
+
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                  <button type="submit" class="btn btn-danger">
+                      Disable My Account
+                  </button>
+                  <span class="extra-options pull-right">[
+                    <a class="info" href="{% url 'userware:user_password_request' %}">
+                      <span>Request New Password</span>
+                    </a> ]
+                  </span>
+              {% endbuttons %}
+
+          </form>
+
+          <div class="new-divider"></div>
+          <i class="fa fa-hand-o-right text-danger"></i> This is extremely important. If you disable your account, there is no going back.<br/>
+          <i class="fa fa-hand-o-right text-info"></i> If you've forgotten your password, you can request a new one.
+
+      </div>
+
+  </div>
+
+</div>
+{% endblock action_box %}

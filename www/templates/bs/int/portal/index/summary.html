@@ -1,0 +1,62 @@
+
+  {% for item in category_summary %}
+
+      <div class="card-box-content box-shadow-4dp summary-box">
+
+        <div class="panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                      <h3 class="bold">
+                        {% category_search_info item.category as cat_info %}
+                        <a href="{{cat_info.url}}" class="summary-category">
+                          {{ item.category.name }}
+                        </a>
+                        <a href="{{cat_info.url}}" class="count pull-right">
+                          ( {{ item.category.count }} Articles )
+                        </a>
+                      </h3>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="summary-article">
+                {% if item.article.primary_media %}
+                    <div class="image-box">
+                      <a href="{{item.article.get_absolute_url}}" class="read-full-article" data-category="{{ item.category.slug }}">
+                        <img src="{{item.article.primary_media.image.url}}" class="img-thumbnail center-block" />
+                      </a>
+                    </div>
+                {% endif %}
+
+                <p class="summary-headline">
+                    {{item.article.headline}}
+                </p>
+
+                {% if item.article.primary_content %}
+                    <div class="summary-content">
+                        {{item.article.primary_content|textify|truncatechars:220|safe}} <a href="{{item.article.get_absolute_url}}" class="read-full-article" data-category="{{ item.category.slug }}"> read more</a>
+                    </div>
+                {% endif %}
+              </div>
+
+            </div>
+
+            <div class="new-divider"></div>
+            <div class="info text-center">
+              <span>
+                {% category_search_info item.category as cat_info %}
+                  <a href="{{cat_info.url}}" class="btn btn-default actionable bold">
+                    <i class="fa fa-arrow-right"></i><span class="action-button-text">More {{ item.category.name }}</span>
+                  </a>
+              </span>
+            </div>
+        </div>
+
+    </div>
+
+{% endfor %}
+
+
+
+

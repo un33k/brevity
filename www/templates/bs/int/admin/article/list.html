@@ -1,0 +1,112 @@
+{% extends "admin/account/base.html" %}
+
+{% block head_title %}
+  <title>{{article_type|capfirst}} Article List - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block content %}
+{{block.super}}
+
+{% get_menu "SUBMENU_PUBLISH_ARTICLES" as menu_list %}
+{% include "admin/account/menu_quick.html" %}
+
+<div class="content-box">
+    <div class="list-box">
+
+      <div class="col-md-10 content center-block">
+        {% block action_box %}
+
+        <div class="card-box-content box-shadow-4dp">
+
+          <div class="panel-default">
+
+              <div class="panel-heading">
+                  <div class="panel-title">
+                      <div class="article-icon pull-right">
+                        <i class="fa fa-newspaper-o"></i>
+                      </div>
+                      <h3 class="bold">{{article_type}} Articles</h3>
+                  </div>
+              </div>
+              <div class="panel-body">
+
+                <div class="" data-example-id="striped-table">
+                    <table class="table table-striped">
+
+                    <thead class="article-list-text-as-icon">
+                      <tr>
+                        <th>#</th>
+                        <th class="text-center" title="Headline">TTL</th>
+                        <th class="text-center" title="Featured">FRD</th>
+                        <th class="text-center" title="Status">PUB</th>
+                        <th class="text-center" title="Edit">EDT</th>
+                      </tr>
+                    </thead>
+
+                    <thead class="article-list-text-as-text">
+                      <tr>
+                        <th>#</th>
+                        <th title="Headline">Title</th>
+                        <th class="text-center" title="Featured">Favorite</th>
+                        <th class="text-center" title="Status">Status</th>
+                        <th class="text-center" title="Edit">Edit</th>
+                      </tr>
+                    </thead>
+
+                      <tbody>
+                        {% for article in articles %}
+                          <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+
+                            <td class="article-list-text-as-text clickable-icon">
+                              {{article.headline|truncatechars:100}}
+                            </td>
+                            <td class="article-list-text-as-icon text-center clickable-icon" rel="popover" data-placement="top" data-container="tbody" data-content="{{article.headline|truncatechars:100}}">
+                              <i class="fa fa-file-text-o"></i>
+                            </td>
+
+                            <td class="text-center">
+                              {% if article.featured %}
+                                <i class="fa fa-star text-success"></i>
+                              {% else %}
+                                <i class="fa fa-star-o text-default"></i>
+                              {% endif %}
+                            </td>
+
+
+                            <td class="text-center">
+                              <div rel="tooltip" data-placement="top" data-original-title="{{article.status}}">
+                                {% if article.is_public %}
+                                  <a href="{{article.get_absolute_url}}" target="_blank"><i class="fa fa-eye text-success"></i></a>
+                                {% elif article.is_unlisted %}
+                                  <a href="{{article.get_absolute_url}}" target="_blank"><i class="fa fa-chain text-warning"></i></a>
+                                {% else %}
+                                  <i class="fa fa-chain-broken text-danger"></i>
+                                {% endif %}
+                              </div>
+                            </td>
+
+                            <td class="text-center">
+                              <a href="{% url 'articleware:article_update' article.id %}"{% if not article.is_private %}class="confirm"{% endif %}>
+                                <i class="fa fa-pencil text-warning"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+
+              </div>
+
+          </div>
+
+        </div>
+        {% endblock action_box %}
+      </div>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<br/>
+{% endblock content %}

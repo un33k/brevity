@@ -1,0 +1,38 @@
+<div id='main-navbar' class="top-nav">
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+
+        <div class="pull-right">
+          <div class="search-menu-item pull-left">
+            <ul class="nav navbar-nav">
+              <li class=""><a href="javascript:void(0)" rel="nofollow,noindex" class="text-search"><i class="fa fa-search"></i></a></li>
+            </ul>
+          </div>
+          <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-top-nav">
+           <span class="menu-caret"><i class="fa fa-navicon"></i><i class="fa fa-caret-down"></i></span>
+          </button>
+        </div>
+        <a class="navbar-brand" href="/" title="Home">
+          <img src="{% static 'img/logos/nav-logo-32x32.png' %}" class="pull-left">  {{SITE_NAME}}
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="collapsable-top-nav">
+          <ul class="nav navbar-nav navbar-left">
+            {% get_menu "LEFT_NAV_MENU" as menu_list %}
+            {% include "menu/list.html" %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% get_menu "RIGHT_NAV_MENU" as menu_list %}
+            {% include "menu/list.html" %}
+          </ul>
+      </div>
+
+    </div>
+  </nav>
+
+</div>
+<div id="nav-spacer"></div>

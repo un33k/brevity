@@ -1,0 +1,15 @@
+
+Approval request from:
+
+Name: {{name}}
+Email: {{email}}
+{% if request.user.is_authenticated %}
+Username: {{request.user.username}}
+{% endif %}
+---------------------
+
+{{message}}
+
+---------------------
+Message received by {{site.domain}} ({{time}})
+Referring page ({{referrer}})

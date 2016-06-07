@@ -1,0 +1,33 @@
+{% extends "base/main.html" %}
+
+{% block content %}
+    {{block.super}}
+
+<div id="article-search-result">
+
+  <div class="article-view-box">
+
+    <div class="col-md-12 article-content">
+
+      <div class="col-md-12 unfloat article center-block">
+
+        <div class="article-index-view center-block">
+          <div class="card-box-content box-shadow-4dp">
+
+            {{flatpage.content|safe|linebreaksbr}}
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="clearfix"></div>
+
+{% endblock content %}
+

@@ -1,0 +1,18 @@
+{% setvar trac_type to 'Star' %}
+
+{% if request.user.is_authenticated %}
+      <a href="{% url 'tracware:tracware_toggler_ajax_url' %}" rel="noindex" {{author_obj|trac_data_tags_initial:trac_type}} class="btn btn-default actionable bold trac_initial_load">
+          {% if author_obj.track.star == 0 %}
+            <i class="fa fa-star-o"></i>
+            <span class="action-button-text trac-togglable-value">Star</span>
+          {% else %}
+            <i class="fa fa-star gold"></i>
+            <span class="action-button-text trac-togglable-value">{{author_obj.track.star}}</span>
+          {% endif %}
+      </a>
+{% else %}
+      <a href="{% url 'userware:user_login' %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" rel="noindex" class="btn btn-default actionable bold confirm" title="Login to star?" placement="top">
+          <i class="fa fa-star-o"></i>
+          <span class="action-button-text trac-togglable-value">{% if author_obj.track.star == 0 %} Star {% else %} {{author_obj.track.star}} {% endif %}</span>
+      </a>
+{% endif %}

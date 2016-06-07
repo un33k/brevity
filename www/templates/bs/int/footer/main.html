@@ -1,0 +1,44 @@
+<div class="main-footer">
+    <nav class="bg-silver">
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-3 footer-column">
+            <h3 class="text-headline text-white">SEARCH</h3>
+            <ul class="text-body">
+                {% get_menu "FOOTER_MENU_SEARCH" as menu_list %}
+                {% include "footer/list.html" %}
+            </ul>
+        </div>
+
+        <div class="col-sm-3 footer-column">
+            <h3 class="text-headline text-white">SOCIAL</h3>
+            <ul class="text-body">
+                {% get_menu "FOOTER_MENU_SOCIAL" as menu_list %}
+                {% include "footer/list.html" %}
+            </ul>
+        </div>
+
+        <div class="col-sm-3 footer-column">
+            <h3 class="text-headline text-white">COMPANY</h3>
+            <ul class="text-body">
+                {% get_menu "FOOTER_MENU_COMPANY" as menu_list %}
+                {% include "footer/list.html" %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="credit bg-steel">
+        <small class="text-caption">
+            <a href="/" class="unfloat">
+                &copy; {% now "Y" %}<strong> &nbsp; {{SITE_DOMAIN | capfirst }}</strong>
+            </a>
+        </small>
+
+         <small class="text-caption pull-right">
+            <a href="http://brevitypress.com" class="unfloat">
+                Powered by: <strong class="white">Brevity</strong>
+            </a>
+        </small>
+    </div>
+
+</div>

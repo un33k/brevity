@@ -1,0 +1,28 @@
+{% extends "base/main.html" %}
+
+{% block head_title %}
+    {% get_title_info as extra_info %}
+    {% get_author filtered_author_username as author_obj %}
+    {% if extra_info %}
+        <title>{{referrer|capfirst}} {{ extra_info }} content {% if filtered_author_username %} - By: {{author_obj.get_full_name}} {% endif %}</title>
+    {% else %}
+        <title>{{referrer|capfirst}} news, events and reviews {% if filtered_author_username %} - By: {{author_obj.get_full_name}} {% endif %}</title>
+    {% endif %}
+{% endblock head_title %}
+
+{% block head_description %}
+    {% get_title_info as extra_info %}
+    {% get_author filtered_author_username as author_obj %}
+    {% if extra_info %}
+        <meta name="description" content="{{referrer|capfirst}} {{ extra_info }} content {% if filtered_author_username %} - By: {{author_obj.get_full_name}} {% endif %}">
+    {% elif request.path %}
+        <meta name="description" content="{{referrer|capfirst}} news, events and reviews {% if filtered_author_username %} - By: {{author_obj.get_full_name}} {% endif %}">
+    {% endif %}
+{% endblock head_description %}
+
+{% block content %}
+    {{block.super}}
+    {% include "portal/article/search/content.html" %}
+{% endblock content %}
+
+

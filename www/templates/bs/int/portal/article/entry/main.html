@@ -1,0 +1,39 @@
+{% extends "base/main.html" %}
+
+{% block head_meta_common %}
+    {{block.super}}
+    <meta property="og:url" content="{{ request|pub_short_link:article }}">
+    <meta property="og:title" content="{{article.headline}}">
+    <meta property="og:site_name" content="{{SITE_DOMAIN|upper}} | BY: {{article.author.full_name|upper}}">
+    <meta property="og:description" content="{{article.primary_content|textify|truncatechars:250}}">
+    <meta property="fb:app_id" content="{{social_fb_app_id}}" />
+
+    <meta name="twitter:site" content="{{SITE_DOMAIN|upper}} | BY {{article.author.full_name|upper}}">
+    <meta name="twitter:title" content="{{article.headline}}">
+    <meta name="twitter:description" content="{{article.primary_content|textify|truncatechars:250}}">
+
+    {% if article.primary_media %}
+        {% if article.primary_media.is_video %}
+            <meta property="og:image" content="{{article.primary_media.image}}">
+            <meta name="twitter:image" content="{{article.primary_media.image}}">
+        {% else %}
+            <meta property="og:image" content="{{article.primary_media.image.url}}">
+            <meta name="twitter:image" content="{{article.primary_media.image.url}}">
+        {% endif %}
+    {% endif %}
+{% endblock head_meta_common %}
+
+
+{% block head_title %}
+    {% get_title_info as extra_info %}
+    <title>{{article.headline}} {{ extra_info }} - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block head_description %}
+    <meta name="description" content="{{article.primary_content|textify|truncatechars:250}}">
+{% endblock head_description %}
+
+{% block content %}
+    {{block.super}}
+    {% include "portal/article/entry/content.html" %}
+{% endblock content %}

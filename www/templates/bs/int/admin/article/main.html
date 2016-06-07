@@ -1,0 +1,75 @@
+{% extends "admin/account/base.html" %}
+
+{% block head_title %}
+  <title>New Article - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block head_css_extra %}
+  {{block.super}}
+  <link href="{% static 'css/vendor/summernote.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/vendor/dropzone.min.css' %}" rel="stylesheet">
+{% endblock head_css_extra %}
+
+{% block body_js_extra %}
+  {{block.super}}
+  <script src="{% static 'js/vendor/summernote.min.js' %}"></script>
+  <script src="{% static 'js/vendor/dropzone.min.js' %}"></script>
+  <script src="{% static 'js/vendor/idle-timer.min.js' %}"></script>
+  {% include 'autocomplete_light/static.html' %}
+{% endblock body_js_extra %}
+
+{% block body_js_custom %}
+  {{block.super}}
+  <script src="{% static 'js/backend.js' %}"></script>
+  <script src="{% static 'js/map_backend.js' %}"></script>
+{% endblock body_js_custom %}
+
+{% block content %}
+{{block.super}}
+
+{% block quick_menu %}
+  {% get_menu "SUBMENU_PUBLISH_ARTICLES" as menu_list %}
+  {% include "admin/account/menu_quick.html" %}
+{% endblock quick_menu %}
+
+<div class="content-box">
+    <div class="form-box">
+
+      <div class="col-md-10 content center-block">
+        {% block action_box %}
+
+          {% if article %}
+            {% include "admin/article/form_update.html" %}
+
+            <div id="snippet-list">
+              {% include "admin/article/snippet/list.html" %}
+            </div>
+
+            {% include "admin/article/snippet/add.html" %}
+
+          {% else %}
+            {% include "admin/article/form_add.html" %}
+          {% endif %}
+        {% endblock action_box %}
+      </div>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+
+
+{% endblock content %}
+
+
+{% block body_document_ready %}
+  {{block.super}}
+  <script type="text/javascript">
+
+    Dropzone.autoDiscover = false;
+
+    $(document).ready(function() {
+
+    });
+
+  </script>
+{% endblock body_document_ready %}

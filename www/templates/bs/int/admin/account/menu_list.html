@@ -1,0 +1,49 @@
+{% for item in menu_list %}
+    {% if not item.visibility or 'sub-nav' in item.visibility %}
+        {% if item.submenu %}
+            <li class="{% if item.selected %}active{% endif %} dropdown" {% for att,val in item.li_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+                <a href="#" class="dropdown-toggle {{item.class}}" data-toggle="dropdown" {% for att,val in item.href_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+                    {% if item.display == 'icon-only' %}
+                        <i class="{{item.icon}}"></i> <i class="fa fa-caret-down"></i>
+                    {% elif item.display == 'name-only' %}
+                        <span> {{item.name}}</span> <i class="fa fa-caret-down"></i>
+                    {% elif item.display == 'icon-name' %}
+                        <i class="fa fa-caret-down"></i> <span> {{item.name}}</span>
+                    {% else %}
+                        <span> {{item.name}}</span> <i class="fa fa-caret-down"></i>
+                    {% endif %}
+                </a>
+                <ul class="dropdown-menu">
+                {% for subitem in item.submenu %}
+                    {% if "top" in subitem.separator %}
+                      <li role="separator" class="separator"></li>
+                    {% endif %}
+                    <li class="{% if subitem.selected %}active{% endif %}" {% for att,val in item.li_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+                        <a class="{% if subitem.selected %}active{% endif %} {{item.class}}" href="{{subitem.url}}" {% for att,val in item.href_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+                            <i class="{{subitem.icon}}"></i>
+                            <span> {{subitem.name}}</span>
+                        </a>
+                    </li>
+                    {% if "bottom" in subitem.separator %}
+                      <li role="separator" class="separator"></li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </li>
+        {% else %}
+            <li class="{% if item.selected %}active{% endif %}" {% for att,val in item.li_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+                <a href="{{item.url}}" class="{{item.class}}" {% for att,val in item.href_attrs.items %} {{att}}="{{val}}" {% endfor %}>
+                    {% if item.display == 'icon-only' %}
+                        <i class="{{item.icon}}"></i>
+                    {% elif item.display == 'name-only' %}
+                        <span> {{item.name}}</span>
+                    {% elif item.display == 'icon-name' %}
+                        <i class="{{item.icon}}"></i> <span> {{item.name}}</span>
+                    {% else %}
+                        <span> {{item.name}}</span> <i class="{{item.icon}}"></i>
+                    {% endif %}
+                </a>
+            </li>
+        {% endif %}
+    {% endif %}
+{% endfor %}

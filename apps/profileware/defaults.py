@@ -1,0 +1,17 @@
+from django.conf import settings
+
+# Password minimum length
+PASSWORD_MIN_LENGTH = getattr(settings, 'PASSWORD_MIN_LENGTH', 6)
+
+# Default username prefix
+PROFILEWARE_USERNAME_PRFIX = 'ID-'
+PROFILEWARE_USERNAME_MAX_LENGHT = 32
+
+PROFILEWARE_TEMPLATE_BASE_DIR = getattr(settings, 'PROFILEWARE_TEMPLATE_BASE_DIR', 'profile')
+
+LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+
+PROFILEWARE_STORAGE_CLASS = getattr(settings, 'PROFILEWARE_STORAGE_CLASS', getattr(
+    settings, 'DEFAULT_FILE_STORAGE'))
+
+PROFILEWARE_REMOVE_IMAGE_CACHE_ON_DELETION = getattr(settings, 'PROFILEWARE_REMOVE_IMAGE_CACHE_ON_DELETION', False)

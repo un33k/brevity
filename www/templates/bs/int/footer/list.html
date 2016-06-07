@@ -1,0 +1,9 @@
+{% for item in menu_list %}
+    <li {% for att,val in item.li_attr.items %} {{att}}="{{val}}" {% endfor %}>
+        <a href="{{item.url}}" class="{{item.class}}" rel="nofollow,noindex"
+            {% for att,val in item.href_attrs.items %} {{att}}="{{val}}" {% endfor %}
+          >
+            <i class="{{item.icon}}"></i>&nbsp;&nbsp;<span> {{item.name}}</span>
+        </a>
+    </li>
+{% endfor %}

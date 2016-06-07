@@ -1,0 +1,69 @@
+<div class="card-box-content box-shadow-4dp">
+
+
+  <div class="card-box-body">
+
+    <div class="clearfix">
+      <div class="no-result-reset">
+        <i class="fa fa-hand-o-right red"></i>&nbsp;&nbsp;Zero results!&nbsp;&nbsp;<br/><br/>
+        <i class="fa fa-hand-o-right bule"></i>&nbsp;&nbsp;Refine your filters and try again&nbsp;&nbsp;
+      </div>
+    </div>
+
+      <div class="article-category-tags">
+
+        {% current_params 'author' referrer as current_authors %}
+        {% if current_authors %}
+          <div class="reset-fields">
+            <div class="reset-name pull-left">Authors: </div>
+            {% for author, url in current_authors.items %}
+              <a href="{{url}}" rel="noindex,nofollow" type="button" class="btn btn-default rotate-wrapper btn-default-selected">
+                {% get_author author referrer as author_obj %}
+                <span class="author-toggle-button">{{ author_obj.full_name }}</span>
+                <i class="fa fa-thumb-tack text-danger"></i>
+              </a>
+            {% endfor %}
+            </div>
+          {% endif %}
+
+        {% current_params 'category' referrer as current_categories %}
+        {% if current_categories %}
+          <div class="reset-fields">
+            <div class="reset-name pull-left">Categories: </div>
+            {% for category, url in current_categories.items %}
+              <a href="{{url}}" rel="noindex,nofollow" type="button" class="btn btn-default rotate-wrapper btn-default-selected">
+                <span class="category-toggle-button">{{ category }}</span>
+                <i class="fa fa-thumb-tack text-danger"></i>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% current_params 'tag' referrer as current_tags %}
+        {% if current_tags %}
+          <div class="reset-fields">
+            <div class="reset-name pull-left">Tags: </div>
+            {% for tag, url in current_tags.items %}
+              <a href="{{url}}" rel="noindex,nofollow" type="button" class="btn btn-default rotate-wrapper btn-default-selected">
+                <span class="tag-toggle-button">{{ tag }}</span>
+                <i class="fa fa-thumb-tack text-danger"></i>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if query_string %}
+          <div class="reset-fields">
+            <div class="reset-name pull-left">Keywords: </div>
+            <a href="javascript:void(0)" rel="noindex,nofollow" type="button" class="btn btn-default rotate-wrapper btn-default-selected text-search bold">
+              {{query_string|truncatechars:30}}&nbsp;&nbsp;<i class="fa fa-search text-danger"></i>
+            </a>
+          </div>
+        {% endif %}
+    </div>
+
+  </div>
+
+</div>
+
+

@@ -1,0 +1,23 @@
+{% extends "admin/account/base.html" %}
+
+{% block content %}
+{{block.super}}
+
+<div class="content-box">
+    <div class="form-box">
+
+      <div class="col-md-8 content center-block">
+        {% block action_box %}
+
+        {% endblock action_box %}
+      </div>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<br/>
+
+{% endblock content %}
+
+
+

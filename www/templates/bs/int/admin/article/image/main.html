@@ -1,0 +1,54 @@
+
+<div class="image-upload-box">
+
+    <form id='image-upload-form-{{snippet.id}}' class="dropzone"
+          action="{% url 'articleware:snippet_image_add' %}"
+          method="post"
+          enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <input name="snippet" value="{{snippet.id}}" hidden />
+
+        {% if snippet.image_processors %}
+          <select class="form-control" id="id_process_type" name="process_type" required="required">
+            {% for processor in snippet.image_processors %}
+              <option value="{{processor}}" {% if forloop.first %}selected="selected"{% endif %}>{{processor}}</option>
+            {% endfor %}
+          </select>
+        {% endif %}
+
+        <div class="image-input">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-picture-o fa-fw text-info spin-it spinning-font-group"></i></span>
+              <input id="image-link-{{snippet.id}}" class="form-control" name="image_url" type="text" placeholder="Add Image By Link">
+              <span class="input-group-btn">
+                <button class="btn btn-info clickable-icon image-add-submitter" type="button" data-link="#image-link-{{snippet.id}}" data-snippet="{{snippet.id}}">Add</button>
+              </span>
+            </div>
+        </div>
+
+    </form>
+
+    <table class="table table-striped image-table">
+      <tbody>
+        {% include "admin/article/image/list.html" %}
+      </tbody>
+    </table>
+
+</div>
+
+<div class="clearfix"></div>
+
+<div id="image-preview-modal" class="col-lg-12 modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+               <a href="" target="_blank" class="image-modal-thumb">
+                   <img src="" />
+               </a>
+
+            </div>
+        </div>
+    </div>
+</div>

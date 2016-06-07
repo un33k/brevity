@@ -1,0 +1,11 @@
+<form class="form-horizontal auto-save-snippets-on-action"
+      action="{% url 'articleware:snippet_update' snippet.id %}"
+      enctype="multipart/form-data"
+      method="POST"
+      accept-charset="utf-8"
+      novalidate>
+
+    {% csrf_token %}
+    {% bootstrap_form snippet.form %}
+
+</form>

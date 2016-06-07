@@ -1,0 +1,32 @@
+<div class="video-add-box">
+
+    <div class="video-input">
+
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-video-camera fa-fw text-success spin-it spinning-font-group"></i></span>
+          <input id="vido-link-{{snippet.id}}" class="form-control" name="link" type="text" placeholder="Enter video link">
+          <span class="input-group-btn">
+            <button class="btn btn-success clickable-icon video-add-submitter" type="button" data-url="{% url 'articleware:snippet_video_add' %}" data-link="#vido-link-{{snippet.id}}" data-snippet="{{snippet.id}}">Add</button>
+          </span>
+        </div>
+
+    </div>
+
+    <table class="table table-striped video-table">
+      <tbody>
+        {% include "admin/article/video/list.html" %}
+      </tbody>
+    </table>
+
+</div>
+
+<div class="clearfix"></div>
+
+<div id="video-preview-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>

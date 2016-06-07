@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block head_css_bootstrap %}
+    <link href="{% static 'css/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+{% endblock head_css_bootstrap %}
+
+{% block head_css_font_awesome %}
+    <link href="{% static 'css/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+{% endblock head_css_font_awesome %}
+
+{% block head_css_extra %}
+    <link href="{% static 'css/vendor/toastr.min.css' %}" rel="stylesheet">
+{% endblock head_css_extra %}
+
+{% block head_css_custom %}
+    <link href="{% static 'css/bs-style.css' %}" rel = "stylesheet">
+    <style type="text/css">
+        .input-ajax-wheel {
+            background: url("{% static 'img/misc/ajax_loader_red.gif' %}") 8px no-repeat; background-position-x:99%;
+            display: none;
+        }
+        .new-divider {
+            background: transparent url("{% static 'img/misc/bg-1px-grey.gif' %}") repeat-x left 9px;
+        }
+    </style>
+{% endblock head_css_custom %}
+<!-- header overwrite end -->
+
+<!-- body overwrite end -->
+{% block navbar %}
+    {% include "menu/main.html" %}
+{% endblock navbar %}
+
+{% block content %}
+    {{block.super}}
+    <div id="text-search-modal" class="col-lg-12 modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form id="text-search-form" class="navbar-form" method="get" action="">
+                        <div class="input-group">
+                            <span  id="text-search-clear" class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                            </span>
+                            <input type="text" id="text-search-input" placeholder="Search..." class="form-control"
+                            {% if query_string %}value="{{query_string}}"{% endif %} data-referrer={{referrer}}>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary text-search-submit-button" type="button">Go</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="social-sharing-modal-article" class="col-lg-12 modal fade social-share-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                  <h4 class="modal-title bold">Like It, Share It!</h4>
+                </div>
+                <div class="modal-body">
+                  loading ...
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+    {% include "footer/main.html" %}
+    {% if request.user.is_superuser %}<meta http-equiv="refresh" content="300000000000000">{% endif %}
+{% endblock footer %}
+
+{% block body_js_jquery %}
+    <script src="{% static 'js/vendor/jquery.min.js' %}"></script>
+    {% if request.user_agent.is_touch_capable %}
+        <script src="{% static 'js/vendor/jquery.mobile.min.js' %}"></script>
+    {% endif %}
+{% endblock body_js_jquery %}
+
+{% block body_js_bootstrap %}
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/vendor/confirmation.min.js' %}"></script>
+    <script src="{% static 'js/vendor/autohidingnavbar.min.js' %}"></script>
+{% endblock body_js_bootstrap %}
+
+{% block body_js_extra %}
+    <script src="{% static 'js/vendor/toastr.min.js' %}"></script>
+{% endblock body_js_extra %}
+
+{% block body_js_custom %}
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places{% if google_maps_key %}&key={{google_maps_key}}{% endif %}"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
+    <script src="{% static 'js/map.js' %}"></script>
+    {% if GOOGLE_ADS %}<script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onerror="set_tracker_on();"></script>{% endif %}
+{% endblock body_js_custom %}
+
+{% block body_document_ready %}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            {% if not request.user_agent.is_touch_capable %}
+                $('[rel=tooltip]').tooltip();
+            {% endif %}
+        });
+    </script>
+
+    {% include "analytics.html" %}
+    {% include "csrf.html" %}
+
+{% endblock body_document_ready %}
+
+{% block body_notifications %}
+    {% include "base/toaster.html" %}
+{% endblock body_notifications %}
+<!-- body overwrite end -->

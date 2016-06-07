@@ -1,0 +1,20 @@
+{% for video in snippet.unfinal_videos %}
+    <tr id="tr-video-{{video.id}}" class="">
+
+     <td class="col-xs-4">
+           <img src="{{video.image}}" width="120" height="68" data-toggle="modal" data-target="#video-preview-modal" class="video-thumb video-preview-modal-trigger" data-vsrc="{{video.link}}" autoplay="1", data-provider="{{video.provider}}" title="{{video.provider}} - {{video.id}}" />
+     </td>
+
+     <td class="col-xs-8">
+
+        <i class="{% if not video.no_swap_up %}clickable-icon video-sort-submitter text-muted {% else %} disabled {% endif %} fa fa-arrow-circle-down fa-3x video-priority-button" data-tr="tr-video-{{video.id}}" data-direction='DOWN' data-url="{% url 'articleware:snippet_video_swap_priority' 'DOWN' video.id %}"></i>
+
+        <i class="{% if not video.no_swap_down %}clickable-icon video-sort-submitter text-muted {% else %} disabled {% endif %} fa fa-arrow-circle-up fa-3x video-priority-button" data-tr="tr-video-{{video.id}}" data-direction='UP' data-url="{% url 'articleware:snippet_video_swap_priority' 'UP' video.id %}"></i>
+
+        <i class="confirm clickable-icon fa fa-trash fa-3x text-danger spin-it" confirm-type="video" data-url="{% url 'articleware:snippet_video_delete' video.id %}" data-tr="tr-video-{{video.id}}"></i>
+
+     </td>
+
+    </tr>
+
+{% endfor %}

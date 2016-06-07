@@ -1,0 +1,35 @@
+<div id="insert-snippet-{{snippet.id}}" style="display:none;">
+
+  <div class="snippet-insert-box">
+
+    <span class="">
+      <div class="clickable-icon btn btn-primary snippet-insert" data-url="{% url 'articleware:snippet_insert' 'TEXT' article.id snippet.priority %}">
+        <i class="fa fa-plus"></i><i class="fa fa-align-left"></i>
+      </div>
+      <div class="bold">Add Text</div>
+    </span>
+
+    <span class="">
+      <div class="clickable-icon btn btn-info snippet-insert" data-url="{% url 'articleware:snippet_insert' 'IMAGE' article.id snippet.priority %}">
+        <i class="fa fa-plus"></i><i class="fa fa-picture-o"></i>
+      </div>
+      <div class="bold">Add Image</div>
+    </span>
+
+    <span class="">
+      <div class="clickable-icon btn btn-success snippet-insert" data-url="{% url 'articleware:snippet_insert' 'VIDEO' article.id snippet.priority %}">
+        <i class="fa fa-plus"></i><i class="fa fa-video-camera"></i>
+      </div>
+      <div class="bold">Add Video</div>
+    </span>
+
+    <span class="">
+      <div class="clickable-icon btn btn-warning snippet-insert" data-url="{% url 'articleware:snippet_insert' 'MAP' article.id snippet.priority %}">
+        <i class="fa fa-plus"></i><i class="fa fa-map-marker"></i>
+      </div>
+      <div class="bold">Add Map</div>
+    </span>
+
+  </div>
+
+</div>

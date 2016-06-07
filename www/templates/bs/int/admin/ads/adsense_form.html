@@ -1,0 +1,54 @@
+{% extends "admin/profile/base.html" %}
+
+{% block head_title %}
+  <title>AdSense - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block action_box %}
+
+{% get_menu "SUBMENU_ACCOUNT_SETTINGS" as menu_list %}
+{% include "admin/account/menu_quick.html" %}
+
+<div class="card-box-content box-shadow-4dp">
+
+  <div class="panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <i class="fa fa-user fa-2x pull-right account-icon-vertical-align"></i>
+            <h3 class="bold">AdSense</h3>
+        </div>
+    </div>
+    <div class="panel-body">
+
+      <div class="brown bold">AdShare Impression: <strong class="green">( % {{adsense.percentage}} )</strong></div>
+      <div class="brown bold">AdSense Client: <strong class="green">( {% if adsense.ad_client %}{{adsense.ad_client}}{% else %}none{% endif %} )</strong></div>
+      <div class="brown bold">AdSense Slot: <strong class="green">( {% if adsense.ad_slot %}{{adsense.ad_slot}}{% else %}none{% endif %} )</strong></div>
+
+      <form class="form-horizontal"
+            action="?next={% if request.GET.next %}{{request.GET.next}}{% else %}{% url 'adware:adsense_update' %}{% endif %}"
+            enctype="multipart/form-data"
+            method="POST"
+            accept-charset="utf-8"
+            novalidate>
+
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% buttons %}
+              <button type="submit" class="btn btn-primary">
+                   Save
+              </button>
+          {% endbuttons %}
+
+      </form>
+
+      <div class="new-divider"></div>
+
+      <i class="fa fa-hand-o-right info"></i>  Approved authors can earn income by writing articles, news and reviews that are <strong>authentic</strong>, and of <strong>hight quality</strong>.<br/>
+      <i class="fa fa-hand-o-right info"></i>  Get paid directly by bringing your own AdSense code.<br/>
+      <i class="fa fa-hand-o-right info"></i>  Generate more income by linking to <strong>Amazon</strong> products.
+
+    </div>
+  </div>
+</div>
+
+{% endblock action_box %}

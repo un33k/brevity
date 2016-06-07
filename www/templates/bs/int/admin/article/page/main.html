@@ -1,0 +1,29 @@
+{% extends "admin/article/main.html" %}
+
+{% block head_title %}
+  <title>New Site Page - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block quick_menu %}
+  {% get_menu "SUBMENU_PUBLISH_PAGES" as menu_list %}
+  {% include "admin/account/menu_quick.html" %}
+{% endblock quick_menu %}
+
+
+{% block action_box %}
+
+    {% if article %}
+        {% include "admin/article/page/form_update.html" %}
+
+        <div id="snippet-list">
+          {% include "admin/article/snippet/list.html" %}
+        </div>
+
+        {% include "admin/article/snippet/add.html" %}
+
+    {% else %}
+        {% include "admin/article/page/form_add.html" %}
+    {% endif %}
+
+
+{% endblock action_box %}

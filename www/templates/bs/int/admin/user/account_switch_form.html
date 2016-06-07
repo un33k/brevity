@@ -1,0 +1,45 @@
+{% extends "admin/user/base_authenticated.html" %}
+
+{% block head_title %}
+  <title>Switch User - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block action_box %}
+
+{% get_menu "SUBMENU_ACCOUNT_SETTINGS" as menu_list %}
+{% include "admin/account/menu_quick.html" %}
+
+<div class="card-box-content box-shadow-4dp">
+
+  <div class="panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <i class="fa fa-user fa-2x pull-right account-icon-vertical-align"></i>
+            <h3 class="bold">Switch User</h3>
+        </div>
+    </div>
+    <div class="panel-body">
+
+        <form class="form-horizontal"
+              action=""
+              enctype="multipart/form-data"
+              method="POST"
+              accept-charset="utf-8"
+              novalidate>
+
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                     Switch
+                </button>
+            {% endbuttons %}
+
+        </form>
+
+    </div>
+
+  </div>
+
+</div>
+{% endblock action_box %}

@@ -1,0 +1,20 @@
+<div class="article-view-box">
+
+  <div class="col-md-12 article-content">
+
+    <div class="col-md-12 unfloat article center-block">
+
+        {% if article.is_page %}
+            {% include "portal/article/format/page_view.html" %}
+        {% elif article.is_blog %}
+            {% include "portal/article/format/blog_view.html" %}
+        {% else %}
+            {% include "portal/article/format/full_view.html" %}
+        {% endif %}
+    </div>
+
+  </div>
+
+</div>
+
+<div class="clearfix"></div>

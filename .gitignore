@@ -1,0 +1,72 @@
+*.py[cod]
+
+*.db
+*.swp
+*.log
+.DS_Store
+*~
+build
+src
+.svn
+*_db
+temp_data
+
+asset/collect/*
+!asset/collect/index.html
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+*/bin
+!bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+# Local DB files
+*_db
+assets/collect/*
+!assets/collect/index.html
+assets/upload/*
+!assets/upload/index.html
+
+.DS_Store
+seekrets.json
+

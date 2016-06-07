@@ -1,0 +1,50 @@
+<div name="#snippet-block-{{snippet.id}}" class="media-container">
+
+    <div id="snippet-{{snippet.id}}-image-carousel" class="carousel slide video-carousel" data-ride="carousel" data-interval="false">
+
+            <ol class="carousel-indicators">
+            {% for image in snippet.videos %}
+                <li data-target="#snippet-{{snippet.id}}-image-carousel" data-slide-to="{{ forloop.counter|add:"-1" }}" class="{% if forloop.first %} active {% endif %}"></li>
+            {% endfor %}
+            </ol>
+
+            <div class="carousel-inner">
+            {% for video in snippet.videos %}
+
+                <div class="item {% if forloop.first %} active {% endif %}">
+                    <div class="video-wrapper video-play-container">
+                        <div class="image">
+                            <img src="{{video.image}}" alt="Image {{forloop.counter}}" class="bottom-aligned">
+                            <div class="overlay-play-button" style="background: url('{% static 'img/misc/video-play-button.png' %}') no-repeat;"></div>
+                        </div>
+                        <div class="video" data-link="{{video.link}}"></div>
+                    </div>
+                </div>
+
+            {% endfor %}
+            </div>
+
+            <a href="#snippet-{{snippet.id}}-image-carousel" data-slide="prev" class="carousel-control left">
+                <div class="overlay-left-button" style="background: url('{% static 'img/misc/carousel-arrow-stripes.png' %}') no-repeat;"></div>
+            </a>
+            <a href="#snippet-{{snippet.id}}-image-carousel" data-slide="next" class="carousel-control right">
+                <div class="overlay-right-button" style="background: url('{% static 'img/misc/carousel-arrow-stripes.png' %}') no-repeat;"></div>
+            </a>
+
+    </div>
+
+</div>
+
+{% if request.user_agent.is_touch_capable %}
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            $("#snippet-{{snippet.id}}-image-carousel").swiperight(function() {
+              $(this).carousel('prev');
+            });
+
+            $("#snippet-{{snippet.id}}-image-carousel").swipeleft(function() {
+              $(this).carousel('next');
+            });
+        });
+    </script>
+{% endif %}

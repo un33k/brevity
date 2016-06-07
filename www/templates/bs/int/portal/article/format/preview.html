@@ -1,0 +1,190 @@
+
+  <div class="card-box-content box-shadow-4dp">
+
+    {% if not request.user_agent.is_bot %}
+      <div class="hidden">{{request|hit_count:article}}</div>
+    {% endif %}
+
+    {% if article.primary_media %}
+      {% if article.primary_media.is_video %}
+        <div class="media-container ">
+          <div class="video-wrapper video-play-container">
+            <div class="image">
+              <img src="{{article.primary_media.image}}" data-link="{{article.primary_media.link}}" class="bottom-aligned">
+              <div class="overlay-play-button" style="background: url('{% static 'img/misc/video-play-button.png' %}') no-repeat;"></div>
+            </div>
+            <div class="video" data-link="{{article.primary_media.link}}"></div>
+          </div>
+        </div>
+      {% else %}
+        <div class="media-container ">
+          <div class="image-wrapper">
+            <div class="image">
+              <a href="{{article.get_absolute_url}}" rel="index,follow" class="read-full-article">
+                <img src="{{request|optimized_image:article.primary_media}}" class="bottom-aligned">
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <h1 class="card-box-title">
+        <span class="index-view-headline">{{article.headline|highlight:query_string}}</span>
+    </h1>
+
+
+    {% if article.author == request.user or article.editor == request.user %}
+      <div class="edit-option pull-left">
+          {% if article.is_page %}
+              <a href="{% url 'articleware:article_page_update' article.id %}" class="confirm" placement="right" title="Edit Page?">
+                <i class="fa fa-pencil text-warning"></i>
+              </a>
+          {% elif article.is_blog %}
+              <a href="{% url 'articleware:article_blog_update' article.id %}" class="confirm" placement="right" title="Edit Blog?">
+                <i class="fa fa-pencil text-warning"></i>
+              </a>
+          {% else %}
+              <a href="{% url 'articleware:article_update' article.id %}" class="confirm" placement="right" title="Edit Article?">
+                <i class="fa fa-pencil text-warning"></i>
+              </a>
+          {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="article-author">
+      {% if article.author.full_name %}
+        <i class='fa fa-user'></i>
+        <span class="rotate-wrapper">
+          {% author_search_info article.author referrer as author_info %}
+          <a href="{{author_info.url}}" rel="index,follow"><span>{{article.author.full_name|highlight:query_string}}</span></a>&nbsp;
+          {% if author_info.is_selected %}
+            <i class="fa fa-thumb-tack text-danger"></i>
+          {% else %}
+            <i class="fa fa-thumb-tack text-success fa-rotate-45"></i>
+          {% endif %}
+        </span>
+      {% elif article.preview %}
+        <span class="fa text-warning">Warning: Your profile is incomplete. Update your full name to have it shown here.</span>
+      {% endif %}
+
+      {% if article.published_at %}
+        &nbsp;&nbsp;<i class='fa fa-clock-o'></i>
+        <span>
+          {% if article.publication_time %}
+            {{article.publication_time}}
+          {% else %}
+            {% if request.user_agent.is_mobile %}
+              {{article.published_at|utc|date:"D, d M Y"}} UTC
+            {% else %}
+              {{article.published_at|utc|date:"l, F d, Y @ f A"}} UTC
+            {% endif %}
+          {% endif %}
+        </span>
+        {% endif %}
+    </div>
+
+
+    {% if article.primary_content %}
+    <div class="card-box-body">
+      <div class="text-content-box">
+        {% if request.user_agent.is_mobile %}
+          {{article.primary_content|textify|truncatechars:200|safe|highlight:query_string}}
+        {% else %}
+          {{article.primary_content|textify|truncatechars:400|safe|highlight:query_string}}
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="new-divider"></div>
+    <div class=center-block>
+
+      <center>
+        <div class="article-category-tags">
+          {% for category in article.categories.all %}
+            {% category_search_info category referrer as cat_info %}
+            <a href="{{cat_info.url}}" rel="noindex,follow" type="button" class="btn btn-default rotate-wrapper {% if cat_info.is_selected %} btn-default-selected {% endif %}">
+              <span class="category-toggle-button">{{ category.name }}</span>
+              {% if cat_info.is_selected %}
+                <i class="fa fa-thumb-tack text-danger"></i>
+              {% else %}
+                <i class="fa fa-thumb-tack text-success fa-rotate-45"></i>
+              {% endif %}
+            </a>
+          {% endfor %}
+
+          {% for tag in article.tags.all %}
+            {% tag_search_info tag referrer as tag_info %}
+            <a href="{{tag_info.url}}" rel="noindex,follow" type="button" class="btn btn-default rotate-wrapper {% if tag_info.is_selected %} btn-default-selected {% endif %}">
+              <span class="tag-toggle-button">{{ tag.name }}</span>
+              {% if tag_info.is_selected %}
+                <i class="fa fa-thumb-tack text-danger"></i>
+              {% else %}
+                <i class="fa fa-thumb-tack text-success fa-rotate-45"></i>
+              {% endif %}
+            </a>
+          {% endfor %}
+
+          {% if query_string %}
+            <a href="javascript:void(0)" rel="noindex,nofollow" type="button" class="btn btn-default btn-default-selected text-search">
+                {{query_string|upper|truncatechars:10}}&nbsp;&nbsp;<i class="fa fa-search-minus text-danger"></i>
+            </a>
+          {% endif %}
+        </div>
+      </center>
+
+    </div>
+
+    {% if article.is_public %}
+    <div class="article-view-action text-center">
+
+      {% if request.user.is_authenticated and request|is_article_admin %}
+        <div data-url="{% url 'articleware:article_featured' article.id %}" class="btn btn-default actionable bold article-featured">
+            <i class="fa fa-{% if article.featured %}check-square-o green{% else %}check-square-o black{% endif %}"></i><span class="action-button-text">Featured</span>
+        </div>
+      {% else %}
+      <!--   <span class="btn btn-default featured bold">
+          <i class="fa {% if article.featured %}fa-star gold{% else %}fa-star-o{% endif %}"></i><span class="action-button-text">Featured</span>
+        </span> -->
+      {% endif %}
+
+      <div class="btn btn-default viewcount bold">
+          <i class="fa fa-eye"></i><span class="action-button-text">{{article.track.view|human_format}}</span>
+      </div>
+
+
+      {% setvar trac_type to 'Like' %}
+      {% setvar trac_icon_color to 'green' %}
+
+      {% if request.user.is_authenticated %}
+            <a href="{% url 'tracware:tracware_toggler_ajax_url' %}" rel="noindex" {{article|trac_data_tags_initial:trac_type}} class="btn btn-default actionable bold trac_initial_load">
+                <i class="fa fa-heart"></i>
+                <span class="action-button-text trac-togglable-value">{{article.track.like}}</span>
+            </a>
+      {% else %}
+            <a href="{% url 'userware:user_login' %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" rel="noindex" class="btn btn-default actionable bold confirm" title="Login to like?" placement="top">
+                <i class="fa fa-heart-o"></i>
+                <span class="action-button-text trac-togglable-value">{{article.track.like}}</span>
+            </a>
+      {% endif %}
+
+
+      {% if article.has_approved_author %}
+        <a href="#" rel="noindex" class="btn btn-default actionable bold" data-toggle="modal" data-target="#social-sharing-modal-article" data-remote="false" data-url="{% url 'portal:article_share_view' article.uuid %}">
+            <i class="fa fa-share-alt"></i><span class="action-button-text">Share</span>
+        </a>
+      {% else %}
+        <a href="#" rel="noindex" class="btn btn-default actionable bold" data-toggle="modal" data-target="#become-an-apporved-author">
+            <i class="fa fa-thumbs-o-up"></i><span class="action-button-text">Get Approved</span>
+        </a>
+      {% endif %}
+
+      <a href="{{article.get_absolute_url}}" rel="index,follow" class="btn btn-default actionable read-full-article bold">
+          <i class="fa fa-arrow-right"></i><span class="action-button-text">More</span>
+      </a>
+
+    </div>
+    {% endif %}
+
+  </div>

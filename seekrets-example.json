@@ -1,0 +1,46 @@
+{
+
+    "deployment_type": "development",
+
+    "site_name": "Brevity",
+    "site_title": "Brevity - Publishing Platform",
+    "site_description": "A Powerful Multimedia-Rich Software that aims at making online publishing very simple.",
+    "site_keyword": "Brevity News Reviews Articles Events Blogs",
+
+    "secret_key": "jg!6tff_01^77_o&amp;-!v6cq8-4dasdf-asdfsdfon+rlr&amp;z50b",
+
+    "database_user": "brevity",
+    "database_name": "brevity_db",
+    "database_pass": "MyBrevityPass",
+
+    "superuser_username": "admino",
+    "superuser_email": "admin@brevitypress.com",
+    "superuser_password": "MyBrevityAdminPass",
+
+    "site_domain": "brevitypress.com",
+    "site_protocol": "http",
+
+    "default_from_email": "support@example.com",
+    "allowed_hosts": ["example.com", "localhost", "127.0.0.1"],
+
+    "aws_user": "brevity_user.s3.development",
+    "aws_id": "AKIAJIABCDKJFO5BNTBA",
+    "aws_secret": "yL8ZDRVCkkABCDC84odR4pxBpWL9X5gCMwKO2aRz7",
+
+    "aws_development_bucket_name": "d.brevitypress.com",
+    "aws_development_bucket_cname": "https://d1yt54345818ixl.cloudfront.net",
+
+    "social_settings": {
+        "SOCIAL_AUTH_FACEBOOK_KEY": "99034332039227",
+        "SOCIAL_AUTH_FACEBOOK_SECRET": "4918f4d5cc4567658131bdcf2a6942e6",
+        "SOCIAL_AUTH_GOOGLE_PLUS_KEY": "3433446852-k44d6chj4hcdij3ee4d10cinimbkr3q.apps.googleusercontent.com",
+        "SOCIAL_AUTH_GOOGLE_PLUS_SECRET": "HGH3aq8zLnx345e4u1Nwl19yb"
+    },
+
+    "postmark_api_key": "0234e4664-94fa-455f-a8a2-244re416cae2",
+
+    "google_analytics_key": "UA-77109729-1",
+    "google_maps_key": "AIzaSyCGD7neadf44reGWnRmmXQKZoKN_Bmftsa1C4",
+    "google_ad_client": "ca-pub-905269222343480",
+    "google_ad_slot": "386333450294"
+}

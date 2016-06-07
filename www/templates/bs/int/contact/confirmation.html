@@ -1,0 +1,33 @@
+{% extends "contact/base.html" %}
+
+{% block head_title %}
+  <title>Message Sent - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+
+{% block action_box %}
+
+<div class="card-box-content box-shadow-4dp quick-nav-blank">
+
+    <div class="panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <i class="fa fa-paper-plane fa-2x pull-right account-icon-vertical-align"></i>
+                <h3 class="bold">Message Sent</h3>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            <p>
+                {% trans "Please note that we are not able to respond to all messages." %}</br></br>
+                {% trans "So, for urgent matters, please call or email us directly instead." %}</br>
+            </p>
+            </br>
+            The {{SITE_NAME|capfirst}} Team!
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock action_box %}

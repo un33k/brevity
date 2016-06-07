@@ -1,0 +1,8 @@
+{% extends "rest_framework/login_base.html" %}
+
+
+{% block title %}API: {{SITE_DOMAIN}} {% endblock %}
+
+{% block branding %}
+    <h3 style="margin: 0 0 20px;">Api V{{API_VERSION}} ({{SITE_DOMAIN}})</h3>
+{% endblock %}

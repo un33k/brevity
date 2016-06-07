@@ -1,0 +1,45 @@
+
+<div class="card-box-content box-shadow-4dp user-card">
+
+
+  <div class="card-box-body">
+    {% get_author filtered_author_username as author_obj %}
+    <div class="user-info-box pull-left">
+        <img src="{{author_obj.get_user_photo}}" class="img-thumbnail center-block user-photo-thumb" />
+
+        {% author_search_info filtered_author_username referrer as author_info %}
+        <a href="{{author_info.url}}" rel="noindex,follow" class="pull-right author-card-close rotate-wrapper">
+            {% if author_info.is_selected %}
+              <i class="fa fa-thumb-tack text-danger"></i>
+            {% endif %}
+        </a>
+
+    </div>
+
+    <div class="author-card-name capitalize">{{author_obj.full_name|highlight:query_string}}</div><br/>
+    <div class="user-bio">
+        <span>{{author_obj.bio|highlight:query_string}}</span>
+    </div>
+
+    {% if author_obj.public_email  or author_obj.website %}
+      <br/>
+      {% if author_obj.public_email %}
+        <div><i class="fa fa-envelope-o"></i> {{author_obj.public_email|truncatechars:40}}</div>
+      {% endif %}
+
+      {% if author_obj.website %}
+        <div><i class="fa fa-chain"></i> {{author_obj.website|truncatechars:40}}</div>
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="article-view-action text-center">
+    {% include "portal/article/misc/profile_star.html" %}
+  </div>
+
+  <div class="clearfix"></div>
+
+</div>

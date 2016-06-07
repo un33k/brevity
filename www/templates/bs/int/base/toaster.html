@@ -1,0 +1,15 @@
+<div id="message_box">
+{% if messages %}
+    <script type="text/javascript">
+    {% for message in messages %}
+        {% if forloop.last %}
+            $( document ).ready(function() {
+                if (!is_refresh_on()){
+                    toaster('{{message.tags}}', '{{ message }}');
+                }
+            });
+        {% endif %}
+    {% endfor %}
+    </script>
+{% endif %}
+</div>

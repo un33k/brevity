@@ -1,0 +1,67 @@
+{% extends "admin/user/base_unauthenticated.html" %}
+
+{% block head_title %}
+  <title>Login - {{SITE_NAME}}</title>
+{% endblock head_title %}
+
+{% block head_description %}
+    <meta name="description" content="Login Portal - {{SITE_NAME}}">
+{% endblock head_description %}
+
+{% block action_box %}
+
+<div class="card-box-content box-shadow-4dp quick-nav-blank">
+
+  <div class="panel-default">
+      <div class="panel-heading">
+          <div class="panel-title">
+              <i class="fa fa-key fa-2x pull-right account-icon-vertical-align"></i>
+              <h3 class="bold">Login</h3>
+          </div>
+      </div>
+      <div class="panel-body">
+
+          <form class="form-horizontal"
+                action="{% if request.GET.next %}?next={{request.GET.next}}{% endif %}"
+                enctype="multipart/form-data"
+                method="POST"
+                accept-charset="utf-8"
+                novalidate>
+
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                  <button type="submit" class="btn btn-primary">Login</button>
+                  <span class="extra-options pull-right">[
+                    <a class="info" href="{% url 'userware:user_password_reset_request' %}" rel="nofollow,noindex">
+                      <span>Forgot Password</span>
+                    </a> ]
+                  </span>
+              {% endbuttons %}
+
+          </form>
+          {% if social_auth_enabled and social_auth_enabled|length > 0 %}
+          <div class="new-divider"><span class="uppercase brown bold">OR</span></div>
+          <div class="social-connect-box">
+            {% for social in social_auth_enabled %}
+              <a href="{% url 'social:begin' social.module %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" rel="nofollow,noindex" class="social-connect-link {{social.name|lower}}-border">
+                <span class="fa-stack fa-3x">
+                  <i class="fa fa-circle fa-stack-2x {{social.name|lower}}-bg"></i>
+                  <i class="fa fa-{{social.icon}} fa-stack-1x social-fg"></i>
+                </span>
+                <div class="col-md-6 text-center">
+                    CONNECT<br>{{social.name|upper}}
+                </div>
+                <i class="fa fa-arrow-right black"></i>
+              </a>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+      </div>
+
+  </div>
+
+</div>
+
+{% endblock action_box %}

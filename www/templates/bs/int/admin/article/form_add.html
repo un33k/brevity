@@ -1,0 +1,45 @@
+<div id="target-article-{{article.id}}">
+
+    <div class="card-box-content box-shadow-4dp">
+
+        <div class="panel-default">
+            <div class="panel-heading">
+              <div class="panel-title">
+                  <div class="article-icon pull-right">
+                    <i class="fa fa-newspaper-o"></i>
+                  </div>
+                  <h3 class="bold">
+                    New Article
+                    <span class="ajax_wheel spin-it">
+                      <img src="{% static 'img/misc/ajax_loader_red.gif' %}">
+                    </span>
+                  </h3>
+              </div>
+            </div>
+            <div class="panel-body">
+
+                <form class="form-horizontal auto-save-snippets-on-action"
+                      action=""
+                      enctype="multipart/form-data"
+                      method="POST"
+                      accept-charset="utf-8"
+                      novalidate>
+
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                             Create
+                        </button>
+                    {% endbuttons %}
+                </form>
+
+                <div class="new-divider"></div>
+                <i class="fa fa-hand-o-right text-info"></i> Create an article with <strong>headline</strong>, <strong>categories</strong> and <strong>tags</strong>, prior to adding content.<br>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

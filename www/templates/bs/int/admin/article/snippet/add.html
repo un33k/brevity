@@ -1,0 +1,40 @@
+<div class="card-box-content box-shadow-4dp">
+
+    <div class="panel-default">
+
+        <div class="panel-body">
+          <div class="snippet-add-box">
+
+              <span class="">
+                <div class="clickable-icon btn btn-primary snippet-add" data-url="{% url 'articleware:snippet_add' 'TEXT' article.id %}">
+                  <i class="fa fa-plus"></i><i class="fa fa-align-left"></i>
+                </div>
+                <div class="bold">Add Text</div>
+              </span>
+
+              <span class="">
+                <div class="clickable-icon btn btn-info snippet-add" data-url="{% url 'articleware:snippet_add' 'IMAGE' article.id %}">
+                  <i class="fa fa-plus"></i><i class="fa fa-picture-o"></i>
+                </div>
+                <div class="bold">Add Image</div>
+              </span>
+
+              <span class="">
+                <div class="clickable-icon btn btn-success snippet-add" data-url="{% url 'articleware:snippet_add' 'VIDEO' article.id %}">
+                  <i class="fa fa-plus"></i><i class="fa fa-video-camera"></i>
+                </div>
+                <div class="bold">Add Video</div>
+              </span>
+
+              <span class="">
+                <div class="clickable-icon btn btn-warning snippet-add" data-url="{% url 'articleware:snippet_add' 'MAP' article.id %}">
+                  <i class="fa fa-plus"></i><i class="fa fa-map-marker"></i>
+                </div>
+                <div class="bold">Add Map</div>
+              </span>
+
+          </div>
+      </div>
+    </div>
+
+</div>

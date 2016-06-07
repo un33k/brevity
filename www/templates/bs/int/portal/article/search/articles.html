@@ -1,0 +1,44 @@
+{% if filtered_articles %}
+
+  {% for article in filtered_articles %}
+
+    {% include "portal/article/format/preview.html" %}
+    {% if forloop.first %}
+      {% include "portal/article/misc/approval.html" %}
+    {% endif %}
+  {% endfor %}
+
+  {% if GOOGLE_ADS %}
+    {% if filtered_articles|length > 1 and curr_page_number == 1 or has_next_page and curr_page_number < 3 %}
+      {% adsense_info as ads_info %}
+      {% if ads_info.0 and ads_info.1 %}
+          {% include "portal/article/misc/ad_bottom.html" %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if has_next_page %}
+    <div id="pagination-data-container">
+        {% pagination_url next_page_number referrer as next_page_url %}
+        <div class="card-box-content box-shadow-4dp text-center show-more-button" data-url="{{next_page_url}}">
+          <span class="pagination-action">
+            <strong class="black pagination-message">show more result</strong>
+          </span>
+          <span class="ajax_wheel pull-right spin-it">
+            <img src="{% static 'img/misc/ajax_loader_red.gif' %}">
+          </span>
+        </div>
+    </div>
+  {% else %}
+    <div class="card-box-content box-shadow-4dp text-center">
+      <span class="pagination-action">
+        <strong class="black">no more result</strong>
+      </span>
+    </div>
+  {% endif %}
+
+{% else %}
+
+    {% include "portal/article/format/refine_view.html" %}
+
+{% endif %}

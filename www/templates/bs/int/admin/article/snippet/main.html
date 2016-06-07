@@ -1,0 +1,63 @@
+<li name="#li-snippet-{{snippet.id}}" id='li-snippet-{{snippet.id}}' class="snippet-li">
+
+  {% include "admin/article/snippet/insert.html" %}
+
+  <div class="card-box-content box-shadow-4dp">
+
+  <div class="snippet-insert-popover clickable-icon" title="Snippets" data-toggle=popover data-placement='right' data-action-content="#insert-snippet-{{snippet.id}}">
+    <i class="fa fa-mail-forward text-info fa-3x"></i>
+    <div class="snippet-insert-icon-plus"><i class="fa fa-plus white"></i></div>
+  </div>
+
+    <div class="panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+            <div class="snippet-icon pull-right">
+              <i class="fa fa-{% if snippet.type == 'IMAGE' %}picture-o lightblue {% elif snippet.type == 'VIDEO' %}video-camera text-success {% elif snippet.type == 'MAP' %}map-marker text-warning{% else %}align-left text-info{% endif %}"></i>
+            </div>
+            <h3 class="bold">
+              Snippet #{{snippet.priority}}
+              <span class="ajax_wheel spin-it">
+                <img src="{% static 'img/misc/ajax_loader_red.gif' %}">
+              </span>
+            </h3>
+        </div>
+      </div>
+      <div class="panel-body">
+
+       {% if snippet.type == snippet.SNIPPET_TYPE_IMAGE %}
+          <div id="target-image-snippet-{{snippet.id}}">
+            {% include "admin/article/image/main.html" %}
+          </div>
+       {% elif snippet.type == snippet.SNIPPET_TYPE_VIDEO %}
+          <div id="target-video-snippet-{{snippet.id}}">
+            {% include "admin/article/video/main.html" %}
+          </div>
+       {% elif snippet.type == snippet.SNIPPET_TYPE_MAP %}
+          <div id="target-map-snippet-{{snippet.id}}">
+            {% include "admin/article/map/main.html" %}
+          </div>
+       {% endif %}
+
+        <div id="target-snippet-{{snippet.id}}" class="text-snippet-block">
+          {% include "admin/article/snippet/form.html" %}
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <div class="snippet-action-box">
+
+          <i class="clickable-icon fa fa-floppy-o text-primary form-submitter" data-target="target-snippet-{{snippet.id}}" title="save"></i>
+
+          <i class="{% if not snippet.no_swap_up %}clickable-icon snippet-sort-submitter  text-muted {% else %} disabled {% endif %} fa fa-arrow-circle-down snippet-priority-button" data-li="li-snippet-{{snippet.id}}" data-direction='DOWN' data-url="{% url 'articleware:snippet_swap_priority' 'DOWN' snippet.id %}" title="move down"></i>
+
+          <i class="{% if not snippet.no_swap_down %}clickable-icon snippet-sort-submitter  text-muted {% else %} disabled {% endif %} fa fa-arrow-circle-up snippet-priority-button" data-li="li-snippet-{{snippet.id}}" data-direction='UP' data-url="{% url 'articleware:snippet_swap_priority' 'UP' snippet.id %}" title=></i>
+
+          <i class="confirm clickable-icon fa fa-trash text-danger" confirm-type="snippet" data-url="{% url 'articleware:snippet_delete' snippet.id %}" data-li="li-snippet-{{snippet.id}}"></i>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</li>
