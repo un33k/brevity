@@ -24,44 +24,6 @@ Use your **intellect** and **passion** on what is really important to you and le
 Visit [simplyfound.com](https://simplyfound.com), create an account and take brevity for a spin.
 
 
-# Development
-
-```bash
-# clone our repository (--depth 1 only gets the last .git commit history)
-git clone --depth 1 https://github.com/un33k/brevity.git
-
-# change directory to our repo
-cd brevity
-
-# change to the development branch
-git checkout development
-
-# add required global libraries
-pip install -r env/reqs/dev.txt
-
-# make a copy of the seekrets.json file
-cp seekrets-example.json seekrets.json
-# make the required changes in seekrets.json for your own setup
-
-# setup your development env
-export DJANGO_SERVER_TYPE='DEVELOPMENT'
-
-# prepare your `sqlite` database for your first run
-bin/dev/manage.py migrate
-
-# run your local development server
-bin/dev/manage.py runserver_plus 0.0.0.0:8080
-
-# point your browser to localhost:8080
-
-# login and start looking around (e.g. create articles)
-# superuser username is found in `superuser_username` in the seekrets.json file
-# superuser password is `hello` -- development ONLY
-```
-
-
 # Deployment
-You can adapt the development steps and modify as per your deployment needs.
-
-Alternative, Brevity can be deployed for you.
+Brevity can be deployed for you.
 Please contact us at [neekware.com](http://neekware.com)
